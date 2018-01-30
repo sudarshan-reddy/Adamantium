@@ -20,7 +20,11 @@ impl Term {
     pub fn enable_raw_mode(&mut self) -> Result<(), Box<Error>> {
         let mut raw = self.termios;
         tcgetattr(self.stdin, &mut raw)?;
-        raw.c_lflag &= !(ECHO | ICANON);
+        raw.c_lflag &= !(ICRNL | IXON);
+        raw.c_lflag &= !(ECHO | ICANON | IEXTEN | ISIG);
+        raw.c_oflag &= !(OPOST);
+        raw.c_cc[VMIN] = 0;
+        raw.c_cc[VTIME] = 1;
         tcsetattr(self.stdin, TCSAFLUSH, &raw)?;
         Ok(())
     }

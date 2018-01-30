@@ -9,11 +9,12 @@ fn main() {
     let mut t = Term::new().unwrap();
     t.enable_raw_mode().unwrap();
     let stdin = io::stdin();
-    let mut c = [0];
-    while let Ok(_) = stdin.lock().read(&mut c) {
+    loop {
+        let mut c = [0];
+        stdin.lock().read(&mut c).unwrap();
         if c == [113] {
             break;
         }
-        println!("{}, {}", c[0], c[0] as char);
+        println!("\r{}, {}", c[0], c[0] as char);
     }
 }
