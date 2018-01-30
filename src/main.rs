@@ -4,7 +4,6 @@ extern crate termios;
 use std::io;
 use std::io::prelude::*;
 use std::process;
-use termios::*;
 use adamantium::Term;
 
 fn main() {
@@ -16,6 +15,6 @@ fn main() {
         if c == [113] {
             process::exit(0);
         }
-        println!("{:?}", c);
+        println!("{}, {}", c[0], c[0] as char);
     }
 }
