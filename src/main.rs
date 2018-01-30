@@ -3,7 +3,6 @@ extern crate termios;
 
 use std::io;
 use std::io::prelude::*;
-use std::process;
 use adamantium::Term;
 
 fn main() {
@@ -13,7 +12,7 @@ fn main() {
     let mut c = [0];
     while let Ok(_) = stdin.lock().read(&mut c) {
         if c == [113] {
-            process::exit(0);
+            break;
         }
         println!("{}, {}", c[0], c[0] as char);
     }

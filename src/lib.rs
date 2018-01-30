@@ -18,9 +18,21 @@ impl Term {
     }
 
     pub fn enable_raw_mode(&mut self) -> Result<(), Box<Error>> {
-        tcgetattr(self.stdin, &mut self.termios)?;
-        self.termios.c_lflag &= !(ECHO | ICANON);
+        let mut raw = self.termios;
+        tcgetattr(self.stdin, &mut raw)?;
+        raw.c_lflag &= !(ECHO | ICANON);
+        tcsetattr(self.stdin, TCSAFLUSH, &raw)?;
+        Ok(())
+    }
+
+    pub fn disable_raw_mode(&self) -> Result<(), Box<Error>> {
         tcsetattr(self.stdin, TCSAFLUSH, &self.termios)?;
         Ok(())
+    }
+}
+
+impl Drop for Term {
+    fn drop(&mut self) {
+        Term::disable_raw_mode(&self).unwrap();
     }
 }
