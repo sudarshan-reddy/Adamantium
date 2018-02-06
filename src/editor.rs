@@ -28,6 +28,14 @@ impl Editor {
     pub fn refresh_screen(&self) {
         print!("{}[2J", 27 as char);
         print!("{}[H", 27 as char);
+        self.draw_rows();
+        print!("{}[H", 27 as char);
+    }
+
+    fn draw_rows(&self) {
+        for _ in 0..24 {
+            print!("{}\r\n", "~")
+        }
     }
 }
 
@@ -35,6 +43,7 @@ impl Drop for Editor {
     fn drop(&mut self) {
         println!("exiting adamantium...");
         thread::sleep(time::Duration::from_millis(1000));
-        Editor::refresh_screen(&self);
+        print!("{}[2J", 27 as char);
+        print!("{}[H", 27 as char);
     }
 }
