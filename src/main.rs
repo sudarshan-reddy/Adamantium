@@ -1,20 +1,16 @@
 extern crate adamantium;
 extern crate termios;
 
-use std::io;
-use std::io::prelude::*;
-use adamantium::Term;
+use adamantium::term::Term;
+use adamantium::editor;
 
 fn main() {
     let mut t = Term::new().unwrap();
     t.enable_raw_mode().unwrap();
-    let stdin = io::stdin();
     loop {
-        let mut c = [0];
-        stdin.lock().read(&mut c).unwrap();
-        if c == [113] {
+        let ok = editor::editor_process_key_press().unwrap();
+        if !ok {
             break;
         }
-        println!("\r{}, {}", c[0], c[0] as char);
     }
 }
