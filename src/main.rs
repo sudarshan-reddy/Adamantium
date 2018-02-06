@@ -8,7 +8,8 @@ fn main() {
     let mut t = Term::new().unwrap();
     t.enable_raw_mode().unwrap();
     loop {
-        let ok = editor::editor_process_key_press().unwrap();
+        editor::refresh_screen();
+        let ok = editor::process_key_press().unwrap();
         if !ok {
             break;
         }
