@@ -20,4 +20,5 @@ pub fn process_key_press() -> Result<bool, Box<Error>> {
 
 pub fn refresh_screen() {
     print!("{}[2J", 27 as char);
+    print!("{}[H", 27 as char);
 }
