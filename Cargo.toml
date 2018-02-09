@@ -6,3 +6,4 @@ authors = ["Sudarshan <sudar.theone@gmail.com>"]
 [dependencies]
 
 "termios" = "*"
+libc = "0.2.36"

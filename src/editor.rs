@@ -2,11 +2,14 @@ use std::io::prelude::*;
 use std::error::Error;
 use std::{io, thread, time};
 
-pub struct Editor {}
+pub struct Editor {
+    row: i32,
+    col: i32,
+}
 
 impl Editor {
-    pub fn new() -> Editor {
-        Editor {}
+    pub fn new(row: i32, col: i32) -> Editor {
+        Editor { row: row, col: col }
     }
 
     fn read_key(&self) -> Result<u8, Box<Error>> {
