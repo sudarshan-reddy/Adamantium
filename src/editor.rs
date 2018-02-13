@@ -36,8 +36,12 @@ impl Editor {
     }
 
     fn draw_rows(&self) {
-        for _ in 0..24 {
-            print!("{}\r\n", "~")
+        for i in 0..self.row {
+            if i == self.row - 1 {
+                print!("{}", "~")
+            } else {
+                print!("{}\r\n", "~")
+            }
         }
     }
 }
